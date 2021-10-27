@@ -70,10 +70,10 @@ spec:
         volumeMounts:
           - mountPath: /var/jenkins_home
             name: jenkins-vol
-    volumes:
-    - name: jenkins-vol
-      persistentVolumeClaim:
-       claimName: jenkins-pv-claim
+      volumes:
+      - name: jenkins-vol
+        persistentVolumeClaim:
+         claimName: jenkins-pv-claim
 ---
 apiVersion: v1
 kind: Service
