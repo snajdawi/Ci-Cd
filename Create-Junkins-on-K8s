@@ -73,7 +73,7 @@ spec:
     volumes:
     - name: jenkins-vol
       persistentVolumeClaim:
-      claimName: jenkins-pv-claim
+       claimName: jenkins-pv-claim
 ---
 apiVersion: v1
 kind: Service
