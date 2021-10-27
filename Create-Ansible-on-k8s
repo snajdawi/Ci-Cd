@@ -64,3 +64,16 @@ spec:
       - name: ansible-persistent-storage
         persistentVolumeClaim:
           claimName: ansible-pv-claim
+---  
+apiVersion: v1
+kind: Service
+metadata:
+  name: ansible
+  namespace: ansible
+spec:
+  type: ClusterIP
+  ports:
+    - port: 22
+      targetPort: 22
+  selector:
+    app: ansible
