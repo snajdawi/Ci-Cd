@@ -3,9 +3,5 @@
   tasks:
   
 
-  - name: deploy new nginx application into local k8s
-    command: docker tag nginx-image:latest snajdawi/nginx
-    args:
-     chdir: /opt/docker
-
-
+  - name: deploy nginx prisma app  into local k8s
+    command: kubectl apply -f ./ansible/deploy-my-new-app-nginx.yaml 
