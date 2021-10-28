@@ -1,0 +1,11 @@
+---
+- hosts: 192.168.1.153
+  tasks:
+  
+
+  - name: deploy new nginx application into local k8s
+    command: docker tag nginx-image:latest snajdawi/nginx
+    args:
+     chdir: /opt/docker
+
+
