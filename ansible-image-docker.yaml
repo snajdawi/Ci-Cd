@@ -1,0 +1,40 @@
+---
+- hosts: 192.168.1.160
+  #become: true
+  tasks:
+  - name: stop if we have old docker container
+    command: docker stop nginx-container
+    ignore_errors: yes
+
+  - name: remove stopped docker container
+    command: docker rm nginx-container
+    ignore_errors: yes
+
+  - name: remove current docker image
+    command: docker rmi nginx-image
+    ignore_errors: yes
+#    register: result
+#    failed_when:
+#      - result.rc == 0
+#      - '"docker" not in result.stdout'
+
+
+  - name: building docker image
+    command: docker build -t nginx-image .
+    args:
+      chdir: /opt/docker
+
+  - name: creating docker image
+    command: docker run -d --name nginx-container -p 8088:80 nginx-image
+    args:
+     chdir: /opt/docker
+
+  - name: tag it snajdawi/nginx
+    command: docker tag nginx-image:latest snajdawi/nginx
+    args:
+     chdir: /opt/docker
+
+  - name: push it to repo snajdawi/nginx
+    command: docker push snajdawi/nginx
+    args:
+     chdir: /opt/docker
