@@ -1,7 +1,0 @@
----
-- hosts: 192.168.1.153
-  tasks:
-  
-
-  - name: deploy nginx prisma app  into local k8s
-    command: kubectl apply -f ./ansible/deploy-my-new-app-nginx.yaml 
