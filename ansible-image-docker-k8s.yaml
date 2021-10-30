@@ -1,0 +1,14 @@
+---
+- hosts: 192.168.1.153
+  tasks:
+  
+
+  - name: delete all pods before deploying
+    #command: kubectl delete pods -n prisma-nginx --force --all
+    # command: kubectl set image -n prisma-nginx deployment/prisma-nginx container-0=snajdawi/nginx:latest
+    command:  kubectl rollout -n prisma-nginx restart deployment prisma-nginx
+    ignore_errors: yes
+
+  - name: deploy nginx prisma app  into local k8s
+    command: kubectl apply -f ./ansible/deploy-my-new-app-nginx.yaml
+    ignore_errors: yes
