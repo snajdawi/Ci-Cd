@@ -1,0 +1,48 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: prisma-nginx
+spec:
+  finalizers:
+  - kubernetes
+
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: prisma-nginx
+  namespace: prisma-nginx
+spec:
+  replicas: 1
+  #strategy: 
+  #  type: Recreate
+  selector:
+    matchLabels:
+      app: prisma-nginx
+  template:
+    metadata:
+      labels:
+        app: prisma-nginx
+    spec:
+      containers:
+      - image: snajdawi/nginx
+        imagePullPolicy: Always
+        name: container-0
+        ports:
+          - name: http-port
+            containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: prisma-nginx-svc
+  namespace: prisma-nginx
+spec:
+  type: NodePort
+  ports:
+    - port: 80
+      targetPort: 80
+      nodePort: 30034
+  selector:
+    app: prisma-nginx
